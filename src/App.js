@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+//React
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+//store
+import { observer } from "mobx-react-lite";
+import UserStore from "./store/User";
+//pages
+import Login from "./pages/Login/Login";
+import Register from "./pages/Registration/Register";
+import Home from "./pages/Home/Home";
 
-function App() {
+const App = observer(() => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route
+          path="/login"
+          render={() => (UserStore.user ? <Redirect to="/" /> : <Login />)}
+        />
+        <Route
+          path="/reg"
+          render={() => (UserStore.user ? <Redirect to="/" /> : <Register />)}
+        />
+      </Switch>
+    </Router>
   );
-}
+});
 
 export default App;
