@@ -23,7 +23,11 @@ class User {
 
     const info = await res.json();
 
-    if (info) this.user = info;
+    if (info) {
+      this.user = info
+
+      return true
+    }
   }
 
   async createUser(data) {

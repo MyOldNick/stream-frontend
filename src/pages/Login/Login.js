@@ -15,10 +15,12 @@ const Login = () => {
 
   const goToRegister = () => history.push("/reg");
 
-  const auth = () => {
-    UserStore.authUser(formsData);
+  const auth = async () => {
+    const res = await UserStore.authUser(formsData);
 
     setFormsData({})
+
+    if(res) history.push('/lk')
   };
 
   const onChange = (event) => {
@@ -35,7 +37,7 @@ const Login = () => {
     <Container>
       <h1 className="text-center mt-5 mb-5">Войти</h1>
       <Form.Control onChange={onChange} name="email" value={formsData.email || ''} className="login-form" placeholder="Email" />
-      <Form.Control onChange={onChange} name="password" value={formsData.password || ''} className="login-form" placeholder="Пароль" />
+      <Form.Control onChange={onChange} name="password" value={formsData.password || ''} className="login-form" placeholder="Пароль" type="password" />
       <div className="d-flex align-items-center flex-column">
         <Button onClick={auth} className="mt-1 mb-1 login-button" >Войти</Button>
         <Button

@@ -12,10 +12,14 @@ import UserStore from "./store/User";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Registration/Register";
 import Home from "./pages/Home/Home";
+import Profile from "./pages/Profile/Profile";
+//components
+import Navigation from "./components/Navbar/Navbar";
 
 const App = observer(() => {
   return (
     <Router>
+      <Navigation />
       <Switch>
         <Route exact path="/" component={Home} />
         <Route
@@ -25,6 +29,12 @@ const App = observer(() => {
         <Route
           path="/reg"
           render={() => (UserStore.user ? <Redirect to="/" /> : <Register />)}
+        />
+        <Route
+          path="/lk"
+          render={() =>
+            UserStore.user ? <Profile /> : <Redirect to="/login" />
+          }
         />
       </Switch>
     </Router>
